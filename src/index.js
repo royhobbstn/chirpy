@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Twitter from 'twitter-lite';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -24,12 +23,10 @@ async function main() {
   const currentToken2 = window.localStorage.getItem('oauth_token_secret');
   const currentToken3 = window.localStorage.getItem('oauth_verifier');
 
-
   if (!currentToken1 || !currentToken2) {
 
-    // get oauth tokens
-
-    await fetch("/api/getAuthTokens")
+    // get app oauth tokens
+    await fetch("http://localhost:8081/api/getAuthTokens")
       .then(res => res.json())
       .then(response => {
         console.log(response);
@@ -43,6 +40,7 @@ async function main() {
       });
   }
 
+  // this will run when redirect process appends querystring to url
   if (currentToken1 && currentToken2 && !currentToken3) {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('oauth_token') && urlParams.has('oauth_verifier')) {
@@ -52,89 +50,74 @@ async function main() {
     }
   }
 
-  // get access tokens
-  const user = new Twitter({
-    consumer_key: "YOfoLwfwjdP95KfbODGD9z2QW",
-    consumer_secret: "EtB2F4NTFIiLn3Pcgqgxu1It8GlmXxvfRxN5uOxBFuXaKhrl63"
-  });
+  const oauthVerifier = window.localStorage.getItem('oauth_verifier');
+  const currentToken4 = window.localStorage.getItem('access_token_key');
+  const currentToken5 = window.localStorage.getItem('access_token_secret');
+  const currentToken6 = window.localStorage.getItem('user_id');
+  const currentToken7 = window.localStorage.getItem('screen_name');
 
-  user
-    .getAccessToken({
-      key: window.localStorage.getItem('oauth_token'),
-      secret: window.localStorage.getItem('oauth_token_secret'),
-      verifier: window.localStorage.getItem('oauth_verifier')
+  if(oauthVerifier && (!currentToken4 || !currentToken5 || !currentToken6 || !currentToken7)) {
+    // get user access tokens
+    await fetch("http://localhost:8081/api/getAccessTokens", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        key: window.localStorage.getItem('oauth_token'),
+        secret: window.localStorage.getItem('oauth_token_secret'),
+        verifier: window.localStorage.getItem('oauth_verifier')
+      })
     })
-    .then(res => {
-      console.log({
-        accTkn: res.oauth_token,
-        accTknSecret: res.oauth_token_secret,
-        userId: res.user_id,
-        screenName: res.screen_name
+      .then(response => response.json())
+      .then( response => {
+        console.log(response);
+        window.localStorage.setItem('access_token_key', response.accTkn);
+        window.localStorage.setItem('access_token_secret', response.accTknSecret);
+        window.localStorage.setItem('user_id', response.userId);
+        window.localStorage.setItem('screen_name', response.screenName);
       });
-    })
-    .catch(err => {
-      console.log(err);
-    });
 
-  const data = await getData(user);
+  }
 
-  const inject = data.map(generateTweet).join('');
+  if(oauthVerifier && currentToken4 && currentToken5 && currentToken6 && currentToken7) {
 
-  document.body.innerHTML = inject;
+    // if here, then must have all tokens
+    const data = await getData();
 
-  console.log(inject);
+    console.log(data);
+
+    const inject = data.map(generateTweet).join('');
+
+    document.body.innerHTML = inject;
+
+    console.log(inject);
+
+  }
+
 
 }
 
 
-function getData(user) {
+function getData() {
 
-  return user
-    .get('statuses/home_timeline', { count: 200, tweet_mode: 'extended' })
-    .then(response => {
-
-      return response
-        .filter(tweet => {
-          const hasLink = tweet.entities.urls[0] && tweet.full_text.includes('https');
-          if (!hasLink && logExcluded) {
-            console.log(`EXCLUDED - NO LINKS: ${tweet.full_text}`);
-          }
-          return hasLink;
-        })
-        .filter(tweet => {
-          const isTwitterLink = tweet.entities.urls[0] && tweet.entities.urls[0].expanded_url.includes('twitter.com');
-          if (isTwitterLink && logExcluded) {
-            console.log(`EXCLUDED - TWITTER INTERNAL LINK: ${tweet.full_text} ${tweet.entities.urls[0].expanded_url}`);
-          }
-          return !isTwitterLink;
-        })
-        .filter(tweet => {
-          const isTwitterLink = tweet.entities.urls[0] && tweet.entities.urls[0].expanded_url.includes('instagram.com');
-          if (isTwitterLink && logExcluded) {
-            console.log(`EXCLUDED - INSTAGRAM LINK: ${tweet.full_text} ${tweet.entities.urls[0].expanded_url}`);
-          }
-          return !isTwitterLink;
-        })
-        .map(tweet => {
-          return {
-            id_str: tweet.id_str,
-            full_text: tweet.full_text,
-            truncated: tweet.truncated,
-            entities: tweet.entities,
-            user: {
-              id_str: tweet.user.id_str,
-              name: tweet.user.name,
-              screen_name: tweet.user.screen_name
-            }
-          };
-
-        });
-
+  return fetch("http://localhost:8081/api/getData", {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+      key: window.localStorage.getItem('access_token_key'),
+      secret: window.localStorage.getItem('access_token_secret')
     })
-    .catch(error => {
-      console.log(error);
-      return [];
+  })
+    .then(response => response.json())
+    .then( response => {
+      return response;
     });
+
 }
 
 
