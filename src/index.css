@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+
+  body {
+    background-color: DeepSkyBlue;
+  }
+  
+  .card {
+    max-width: 800px;
+    border-radius: 5px;
+    background-color: SeaShell;
+    border: 2px solid AliceBlue;
+    box-shadow: 0 4px 8px 0 rgba(0,0,50,0.4);
+    transition: 0.3s;
+    margin: 16px auto 16px auto;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,50,0.4);
+  }
+  
+  .container {
+    padding: 0px 10px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+  
+  .image-container {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .image-container img {
+    max-height: 300px;
+  }
