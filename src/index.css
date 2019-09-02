@@ -7,18 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-
-
   body {
     background-color: DeepSkyBlue;
   }
   
   .card {
+    width: 80%;
     max-width: 800px;
     border-radius: 5px;
     background-color: SeaShell;
@@ -49,4 +43,5 @@ code {
   
   .image-container img {
     max-height: 300px;
+    max-width: 80%;
   }
