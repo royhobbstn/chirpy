@@ -2,125 +2,56 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import {runAuthentication} from "./Service/authentication";
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { thunkLoadInitialData} from "./Redux/thunks";
+import Store from './Redux/combine_reducers';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(
+  Store,
+  composeEnhancers(
+    applyMiddleware(thunk),
+  )
+);
+
+/* global URLSearchParams fetch */
+
+runAuthentication()
+  .then(async ()=> {
+
+    store.dispatch(thunkLoadInitialData());
+
+    // const data = await getData();
+    //
+    // console.log(data);
+    //
+    // const inject = data.map(generateTweet).join('');
+    //
+    // document.body.innerHTML = inject;
+    //
+    // console.log(inject);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-
-/* global URLSearchParams fetch */
-
-const logExcluded = true;
-
-main();
-
-async function main() {
-  const currentToken1 = window.localStorage.getItem('oauth_token');
-  const currentToken2 = window.localStorage.getItem('oauth_token_secret');
-  const currentToken3 = window.localStorage.getItem('oauth_verifier');
-
-  if (!currentToken1 || !currentToken2) {
-
-    // get app oauth tokens
-    await fetch("http://localhost:8081/api/getAuthTokens")
-      .then(res => res.json())
-      .then(response => {
-        console.log(response);
-        // {"oauth_token":"","oauth_token_secret":"","oauth_callback_confirmed":"true"}
-        window.localStorage.setItem('oauth_token', response.oauth_token);
-        window.localStorage.setItem('oauth_token_secret', response.oauth_token_secret);
-        window.location = `https://api.twitter.com/oauth/authorize?oauth_token=${response.oauth_token}`;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  // this will run when redirect process appends querystring to url
-  if (currentToken1 && currentToken2 && !currentToken3) {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('oauth_token') && urlParams.has('oauth_verifier')) {
-      if (urlParams.get('oauth_token') === currentToken1) {
-        window.localStorage.setItem('oauth_verifier', urlParams.get('oauth_verifier'));
-      }
-    }
-  }
-
-  const oauthVerifier = window.localStorage.getItem('oauth_verifier');
-  const currentToken4 = window.localStorage.getItem('access_token_key');
-  const currentToken5 = window.localStorage.getItem('access_token_secret');
-  const currentToken6 = window.localStorage.getItem('user_id');
-  const currentToken7 = window.localStorage.getItem('screen_name');
-
-  if(oauthVerifier && (!currentToken4 || !currentToken5 || !currentToken6 || !currentToken7)) {
-    // get user access tokens
-    await fetch("http://localhost:8081/api/getAccessTokens", {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify({
-        key: window.localStorage.getItem('oauth_token'),
-        secret: window.localStorage.getItem('oauth_token_secret'),
-        verifier: window.localStorage.getItem('oauth_verifier')
-      })
-    })
-      .then(response => response.json())
-      .then( response => {
-        console.log(response);
-        window.localStorage.setItem('access_token_key', response.accTkn);
-        window.localStorage.setItem('access_token_secret', response.accTknSecret);
-        window.localStorage.setItem('user_id', response.userId);
-        window.localStorage.setItem('screen_name', response.screenName);
-      });
-
-  }
-
-  if(oauthVerifier && currentToken4 && currentToken5 && currentToken6 && currentToken7) {
-
-    // if here, then must have all tokens
-    const data = await getData();
-
-    console.log(data);
-
-    const inject = data.map(generateTweet).join('');
-
-    document.body.innerHTML = inject;
-
-    console.log(inject);
-
-  }
-
-
-}
-
-
-function getData() {
-
-  return fetch("http://localhost:8081/api/getData", {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify({
-      key: window.localStorage.getItem('access_token_key'),
-      secret: window.localStorage.getItem('access_token_secret')
-    })
-  })
-    .then(response => response.json())
-    .then( response => {
-      return response;
-    });
-
-}
-
-
 
 
 function generateTweet(tweet) {
