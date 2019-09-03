@@ -87,7 +87,7 @@ app.post('/api/getData', async(req, res) => {
 
       const json = response
         .filter(tweet => {
-          const hasLink = tweet.entities.urls[0] && tweet.full_text.includes('https');
+          const hasLink = tweet.full_text.includes('https'); // tweet.entities.urls[0] &&  - to eliminate image-only tweets
           if (!hasLink && logExcluded) {
             console.log(`EXCLUDED - NO LINKS: ${tweet.full_text}`);
           }
