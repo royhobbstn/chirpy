@@ -1,15 +1,12 @@
 // reducer
 
 const default_state = {
-  data: [],
+  data: []
 };
 
-const main = (
-  state = default_state,
-  action
-) => {
+const main = (state = default_state, action) => {
   switch (action.type) {
-    case 'LOAD_INITIAL_DATA':
+    case "LOAD_INITIAL_DATA":
       return Object.assign({}, state, {
         data: action.data
       });
