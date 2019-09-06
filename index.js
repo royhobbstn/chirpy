@@ -58,7 +58,7 @@ app.post("/api/getAccessTokens", async (req, res) => {
 });
 
 app.post("/api/getData", async (req, res) => {
-  const logExcluded = true;
+  const logExcluded = false;
 
   const client = new Twitter({
     consumer_key: "YOfoLwfwjdP95KfbODGD9z2QW",
@@ -72,7 +72,8 @@ app.post("/api/getData", async (req, res) => {
     .then(response => {
       const json = response
         .filter(tweet => {
-          const hasLink = tweet.full_text.includes("https"); // tweet.entities.urls[0] &&  - to eliminate image-only tweets
+          const hasLink =
+            tweet.full_text.includes("https") && tweet.entities.urls[0];
           if (!hasLink && logExcluded) {
             console.log(`EXCLUDED - NO LINKS: ${tweet.full_text}`);
           }
