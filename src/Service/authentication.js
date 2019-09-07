@@ -5,7 +5,9 @@ export async function runAuthentication() {
 
   if (!currentToken1 || !currentToken2) {
     // get app oauth tokens
-    await fetch("http://localhost:8081/getAuthTokens")
+    await fetch(
+      "https://8icruycmzd.execute-api.us-west-2.amazonaws.com/dev/getAuthTokens"
+    )
       .then(res => res.json())
       .then(response => {
         console.log(response);
@@ -46,18 +48,21 @@ export async function runAuthentication() {
     (!currentToken4 || !currentToken5 || !currentToken6 || !currentToken7)
   ) {
     // get user access tokens
-    await fetch("http://localhost:8081/getAccessTokens", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify({
-        key: window.localStorage.getItem("oauth_token"),
-        secret: window.localStorage.getItem("oauth_token_secret"),
-        verifier: window.localStorage.getItem("oauth_verifier")
-      })
-    })
+    await fetch(
+      "https://8icruycmzd.execute-api.us-west-2.amazonaws.com/dev/getAccessTokens",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+          key: window.localStorage.getItem("oauth_token"),
+          secret: window.localStorage.getItem("oauth_token_secret"),
+          verifier: window.localStorage.getItem("oauth_verifier")
+        })
+      }
+    )
       .then(response => response.json())
       .then(response => {
         console.log(response);
