@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Menu from "./Menu";
 import { thunkLoadInitialData } from "./Redux/thunks";
+import { clearData } from "./Redux/actions";
 
 const mapStateToProps = state => {
   return {};
@@ -9,6 +10,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     reloadData() {
+      dispatch(clearData());
       dispatch(thunkLoadInitialData());
     }
   };

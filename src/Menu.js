@@ -4,7 +4,12 @@ function Menu({ reloadData }) {
   return (
     <div className="menu">
       <div className="menu-container">
-        <button className="menu-button" onClick={reloadData()}>
+        <button
+          className="menu-button"
+          onClick={() => {
+            reloadData();
+          }}
+        >
           Fetch New
         </button>
         <button

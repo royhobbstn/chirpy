@@ -1,3 +1,5 @@
+//
+
 export async function runAuthentication() {
   const currentToken1 = window.localStorage.getItem("oauth_token");
   const currentToken2 = window.localStorage.getItem("oauth_token_secret");
@@ -72,7 +74,8 @@ export async function runAuthentication() {
         );
         window.localStorage.setItem("user_id", response.userId);
         window.localStorage.setItem("screen_name", response.screenName);
-        window.location.href = window.location.hostname;
+        window.history.replaceState({}, document.title, "/");
+        window.location.reload();
       });
   }
 

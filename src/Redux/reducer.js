@@ -10,6 +10,10 @@ const main = (state = default_state, action) => {
       return Object.assign({}, state, {
         data: action.data
       });
+    case "CLEAR_DATA":
+      return Object.assign({}, state, {
+        data: []
+      });
     default:
       return state;
   }

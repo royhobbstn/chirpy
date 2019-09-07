@@ -4,3 +4,9 @@ export function loadInitialData(data) {
     data
   };
 }
+
+export function clearData() {
+  return {
+    type: "CLEAR_DATA"
+  };
+}
