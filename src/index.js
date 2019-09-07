@@ -17,8 +17,10 @@ export const store = createStore(
 );
 
 runAuthentication()
-  .then(async () => {
-    store.dispatch(thunkLoadInitialData());
+  .then(async result => {
+    if (result === true) {
+      store.dispatch(thunkLoadInitialData());
+    }
   })
   .catch(err => {
     console.log(err);

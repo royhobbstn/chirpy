@@ -19,7 +19,7 @@ body {
     border: 2px solid AliceBlue;
     box-shadow: 0 4px 8px 0 rgba(0,0,50,0.4);
     transition: 0.3s;
-    margin: 16px auto 16px auto;
+    margin: 25px auto 16px auto;
   }
 
   .card:hover {
@@ -27,7 +27,11 @@ body {
   }
   
   .container {
-    padding: 0 10px;
+    padding: 4px 16px;
+  }
+
+  .buffer {
+    margin: 12px 0;
   }
 
   .bold {
@@ -50,4 +54,34 @@ body {
 .image-container a img {
     max-height: 300px;
     max-width: 80%;
+}
+
+.menu-container {
+  width: 80%;
+  margin: auto;
+  max-width: 800px;
+}
+
+.menu {
+  height: 40px;
+  background-color: blue;
+  color: white;
+}
+
+.menu-button {
+  margin-top: 8px;
+  width: 100px;
+  border-radius: 10px;
+  padding: 3px 0;
+  background-color: SeaShell;
+  border: 1px solid grey;
+}
+
+.menu-button:hover {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.float-right {
+  float: right;
 }

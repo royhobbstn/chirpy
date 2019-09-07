@@ -6,18 +6,21 @@ export async function runAuthentication() {
   if (!currentToken1 || !currentToken2) {
     // get app oauth tokens
     await fetch(
-      "https://8icruycmzd.execute-api.us-west-2.amazonaws.com/dev/getAuthTokens"
+      `${
+        process.env.REACT_APP_API_URL
+      }getAuthTokens?callback=${window.encodeURIComponent(
+        process.env.REACT_APP_CALLBACK_URL
+      )}`
     )
       .then(res => res.json())
       .then(response => {
-        console.log(response);
         // {"oauth_token":"","oauth_token_secret":"","oauth_callback_confirmed":"true"}
         window.localStorage.setItem("oauth_token", response.oauth_token);
         window.localStorage.setItem(
           "oauth_token_secret",
           response.oauth_token_secret
         );
-        window.location = `https://api.twitter.com/oauth/authorize?oauth_token=${response.oauth_token}`;
+        window.location.href = `https://api.twitter.com/oauth/authorize?oauth_token=${response.oauth_token}`;
       })
       .catch(err => {
         console.log(err);
@@ -48,24 +51,20 @@ export async function runAuthentication() {
     (!currentToken4 || !currentToken5 || !currentToken6 || !currentToken7)
   ) {
     // get user access tokens
-    await fetch(
-      "https://8icruycmzd.execute-api.us-west-2.amazonaws.com/dev/getAccessTokens",
-      {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify({
-          key: window.localStorage.getItem("oauth_token"),
-          secret: window.localStorage.getItem("oauth_token_secret"),
-          verifier: window.localStorage.getItem("oauth_verifier")
-        })
-      }
-    )
+    await fetch(`${process.env.REACT_APP_API_URL}getAccessTokens`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({
+        key: window.localStorage.getItem("oauth_token"),
+        secret: window.localStorage.getItem("oauth_token_secret"),
+        verifier: window.localStorage.getItem("oauth_verifier")
+      })
+    })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         window.localStorage.setItem("access_token_key", response.accTkn);
         window.localStorage.setItem(
           "access_token_secret",
@@ -73,6 +72,7 @@ export async function runAuthentication() {
         );
         window.localStorage.setItem("user_id", response.userId);
         window.localStorage.setItem("screen_name", response.screenName);
+        window.location.href = window.location.hostname;
       });
   }
 
@@ -85,6 +85,6 @@ export async function runAuthentication() {
   ) {
     return true;
   } else {
-    throw new Error("Error in auth flow");
+    return false;
   }
 }

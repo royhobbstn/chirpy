@@ -1,8 +1,14 @@
 import React from "react";
 import reactStringReplace from "react-string-replace";
+import MenuContainer from "./MenuContainer";
 
 function App({ data }) {
-  return <div>{data.map(generateTweet)}</div>;
+  return (
+    <div>
+      <MenuContainer />
+      {data.map(generateTweet)}
+    </div>
+  );
 }
 
 export default App;
@@ -11,11 +17,11 @@ function generateTweet(tweet) {
   const linkedTweet = replaceLinks(tweet);
 
   return (
-    <div className="card container">
-      <p className="container">
+    <div key={tweet.id_str} className="card container">
+      <div className="buffer">
         <span className="bold">@{tweet.user.screen_name}&nbsp;&nbsp;</span>
         {linkedTweet}
-      </p>
+      </div>
     </div>
   );
 }
@@ -45,9 +51,13 @@ function replaceLinks(tweet) {
     });
 
   Object.keys(key).forEach(k => {
-    // full_text = full_text.replace(k, <a href={key[k].expanded} target="_blank">${key[k].display}</a>);
     full_text = reactStringReplace(full_text, k, (match, i) => (
-      <a href={key[k].expanded} target="_blank" rel="noopener noreferrer">
+      <a
+        href={key[k].expanded}
+        key={k}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {key[k].display}
       </a>
     ));
@@ -64,8 +74,9 @@ function replaceLinks(tweet) {
     const append_querystring_lg = `${removed_type}?format=${ext_query}&name=large`;
 
     full_text = reactStringReplace(full_text, k, (match, i) => (
-      <div className="image-container">
+      <div key={k} className="image-container">
         <a
+          key={k}
           href={append_querystring_lg}
           target="_blank"
           rel="noopener noreferrer"
