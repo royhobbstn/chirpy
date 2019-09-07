@@ -5,7 +5,7 @@ export async function runAuthentication() {
 
   if (!currentToken1 || !currentToken2) {
     // get app oauth tokens
-    await fetch("http://localhost:8081/api/getAuthTokens")
+    await fetch("http://localhost:8081/getAuthTokens")
       .then(res => res.json())
       .then(response => {
         console.log(response);
@@ -46,7 +46,7 @@ export async function runAuthentication() {
     (!currentToken4 || !currentToken5 || !currentToken6 || !currentToken7)
   ) {
     // get user access tokens
-    await fetch("http://localhost:8081/api/getAccessTokens", {
+    await fetch("http://localhost:8081/getAccessTokens", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"

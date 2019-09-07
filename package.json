@@ -6,6 +6,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "gh-pages": "^2.1.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
@@ -13,9 +14,13 @@
     "react-string-replace": "^0.4.4",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "serverless-http": "^2.3.0",
     "twitter-lite": "^0.9.4"
   },
+  "homepage": "https://www.chirpy-app.com",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -37,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "serverless-content-encoding": "^1.1.0"
   }
 }

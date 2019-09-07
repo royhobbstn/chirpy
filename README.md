@@ -2,9 +2,9 @@
 
 *"A chirp is quieter than a tweet."*
 
-A free, minimal information-focused Twitter client.
+A free, minimal, information-focused Twitter client.
 
-Only display "chirps" with outside links.  No inane banter.  No moral outrage.  No endless scrolling.  Just the nutrients.
+Only display *"chirps"* with outside links.  No inane banter.  No moral outrage.  No endless scrolling.  Just the nutrients.
 
 Chirpy dutifully delivers a limited selection of info-link-worms and you will eat them because it's what you've been given.</sub>
 
@@ -20,7 +20,7 @@ Chirpy dutifully delivers a limited selection of info-link-worms and you will ea
  - Fill in the details.
  - Boom.
  
- **Android**: 
+**Android**: 
  
  - Google it.
  - ???

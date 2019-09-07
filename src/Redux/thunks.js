@@ -4,7 +4,7 @@ import { loadInitialData } from "./actions.js";
 
 export function thunkLoadInitialData() {
   return (dispatch, getState) => {
-    return fetch("http://localhost:8081/api/getData", {
+    return fetch("http://localhost:8081/getData", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
