@@ -22,10 +22,6 @@ body {
     margin: 25px auto 16px auto;
   }
 
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,50,0.4);
-  }
-  
   .container {
     padding: 4px 16px;
   }
@@ -63,25 +59,32 @@ body {
 }
 
 .menu {
-  height: 40px;
-  background-color: blue;
-  color: white;
+  height: 80px;
 }
 
 .menu-button {
-  margin-top: 8px;
-  width: 100px;
-  border-radius: 10px;
-  padding: 3px 0;
+  margin-top: 26px;
+  width: 200px;
+  padding: 14px 8px;
+  border-radius: 5px;
   background-color: SeaShell;
-  border: 1px solid grey;
+  border: 2px solid AliceBlue;
+  box-shadow: 0 4px 8px 0 rgba(0,0,50,0.4);
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .menu-button:hover {
   background-color: white;
-  border: 1px solid black;
+  box-shadow: 0 8px 16px 0 rgba(0,0,50,0.4);
 }
 
 .float-right {
   float: right;
+}
+
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

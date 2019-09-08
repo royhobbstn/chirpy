@@ -1,6 +1,7 @@
 import React from "react";
 import reactStringReplace from "react-string-replace";
 import MenuContainer from "./MenuContainer";
+import he from "he";
 
 function App({ data }) {
   return (
@@ -20,7 +21,7 @@ function generateTweet(tweet) {
     <div key={tweet.id_str} className="card container">
       <div className="buffer">
         <span className="bold">@{tweet.user.screen_name}&nbsp;&nbsp;</span>
-        {linkedTweet}
+        <pre>{linkedTweet}</pre>
       </div>
     </div>
   );
@@ -50,6 +51,7 @@ function replaceLinks(tweet) {
       media_key[text] = { media_url: item.media_url_https, type: item.type };
     });
 
+  full_text = he.decode(full_text);
   Object.keys(key).forEach(k => {
     full_text = reactStringReplace(full_text, k, (match, i) => (
       <a
