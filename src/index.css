@@ -1,90 +1,83 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: DeepSkyBlue;
 }
 
-  body {
-    background-color: DeepSkyBlue;
-  }
-  
-  .card {
+.card {
     width: 80%;
     max-width: 800px;
     border-radius: 5px;
     background-color: SeaShell;
     border: 2px solid AliceBlue;
-    box-shadow: 0 4px 8px 0 rgba(0,0,50,0.4);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 50, 0.4);
     transition: 0.3s;
     margin: 25px auto 16px auto;
-  }
+}
 
-  .container {
+.container {
     padding: 4px 16px;
-  }
+}
 
-  .buffer {
+.buffer {
     margin: 12px 0;
-  }
+}
 
-  .bold {
+.bold {
     font-weight: bold;
-  }
-  
-  .image-container {
+}
+
+.image-container {
     width: 100%;
     padding: 10px 0;
     display: flex;
     justify-content: center;
-  }
-  
-  .image-container a {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-  }
+}
 
-.image-container a img {
-    max-height: 300px;
-    max-width: 80%;
+.image-container a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .menu-container {
-  width: 80%;
-  margin: auto;
-  max-width: 800px;
+    width: 80%;
+    margin: auto;
+    max-width: 800px;
 }
 
 .menu {
-  height: 80px;
+    height: 80px;
 }
 
 .menu-button {
-  margin-top: 26px;
-  width: 200px;
-  padding: 14px 8px;
-  border-radius: 5px;
-  background-color: SeaShell;
-  border: 2px solid AliceBlue;
-  box-shadow: 0 4px 8px 0 rgba(0,0,50,0.4);
-  transition: 0.3s;
-  cursor: pointer;
+    margin-top: 26px;
+    width: 200px;
+    max-width: 40%;
+    padding: 14px 8px;
+    border-radius: 5px;
+    background-color: SeaShell;
+    border: 2px solid AliceBlue;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 50, 0.4);
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .menu-button:hover {
-  background-color: white;
-  box-shadow: 0 8px 16px 0 rgba(0,0,50,0.4);
+    background-color: white;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 50, 0.4);
 }
 
 .float-right {
-  float: right;
+    float: right;
 }
 
 pre {
-  overflow-x: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }

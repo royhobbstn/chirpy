@@ -72,7 +72,6 @@ function replaceLinks(tweet) {
       extension === "jpeg" || extension === "jpg" ? "jpg" : "png";
     const removed_type = media_url_array.join(".");
 
-    const append_querystring = `${removed_type}?format=${ext_query}&name=small`;
     const append_querystring_lg = `${removed_type}?format=${ext_query}&name=large`;
 
     full_text = reactStringReplace(full_text, k, (match, i) => (
@@ -83,7 +82,7 @@ function replaceLinks(tweet) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={append_querystring} alt={"Embedded " + media_key[k].type} />
+          [Img: {removed_type}]
         </a>
       </div>
     ));

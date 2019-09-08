@@ -1,1 +1,7 @@
-Scrunchy images
+Highlight:
+
+@mentions
+
+RT
+
+#hashtags
