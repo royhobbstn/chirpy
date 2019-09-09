@@ -20,6 +20,8 @@ Only display *"chirps"* with outside links.  No inane banter.  No moral outrage.
  - In the lower icon row, click: **Add to Home Screen**
  - Fill in the details.
  - Boom.
+ - ...Actually you'll need to Auth again.
+ - Boom! (for real this time)
  
 **Android**: 
  

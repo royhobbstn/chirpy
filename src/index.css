@@ -38,12 +38,6 @@ body {
     justify-content: center;
 }
 
-.image-container a {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 .menu-container {
     width: 80%;
     margin: auto;

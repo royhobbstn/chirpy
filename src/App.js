@@ -75,16 +75,19 @@ function replaceLinks(tweet) {
     const append_querystring_lg = `${removed_type}?format=${ext_query}&name=large`;
 
     full_text = reactStringReplace(full_text, k, (match, i) => (
-      <div key={k} className="image-container">
-        <a
-          key={k}
-          href={append_querystring_lg}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          [Img: {removed_type}]
-        </a>
-      </div>
+      <a
+        key={k}
+        style={{ display: "block", paddingTop: "10px" }}
+        href={append_querystring_lg}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        [Img:{" "}
+        {removed_type.length > 24
+          ? removed_type.slice(0, 21) + "..."
+          : removed_type}
+        ]
+      </a>
     ));
   });
 

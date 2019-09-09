@@ -5,3 +5,9 @@ Highlight:
 RT
 
 #hashtags
+
+video link
+
+how long ago
+
+mouseover main hashtag show user name
