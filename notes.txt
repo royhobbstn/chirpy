@@ -1,13 +1,30 @@
 Highlight:
 
-@mentions
-
 RT
 
-#hashtags
-
-video link
+video link and subsequent entity &#x1F4F9;
 
 how long ago
 
-mouseover main hashtag show user name
+line height on lines with emoji?
+
+Below - can see how this can happen
+
+Warning: Encountered two children with the same key, `#QA`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+    in pre (at App.js:26)
+    in div (at App.js:22)
+    in div (at App.js:21)
+    in div (at App.js:8)
+    in App (created by ConnectFunction)
+    in ConnectFunction (at src/index.js:31)
+    in Provider (at src/index.js:30)
+function.console.(anonymous function) @ index.js:1375
+index.js:1375 Warning: Encountered two children with the same key, `@SFPD`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version.
+    in pre (at App.js:26)
+    in div (at App.js:22)
+    in div (at App.js:21)
+    in div (at App.js:8)
+    in App (created by ConnectFunction)
+    in ConnectFunction (at src/index.js:31)
+    in Provider (at src/index.js:30)
+function.console.(anonymous function) @ index.js:1375

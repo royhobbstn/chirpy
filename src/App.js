@@ -20,7 +20,9 @@ function generateTweet(tweet) {
   return (
     <div key={tweet.id_str} className="card container">
       <div className="buffer">
-        <span className="bold">@{tweet.user.screen_name}&nbsp;&nbsp;</span>
+        <span className="main-alias" title={tweet.user.name}>
+          @{tweet.user.screen_name}&nbsp;&nbsp;
+        </span>
         <pre>{linkedTweet}</pre>
       </div>
     </div>
@@ -34,6 +36,8 @@ function replaceLinks(tweet) {
 
   const key = {};
   const media_key = {};
+  const mentions = {};
+  const hashtags = {};
 
   // create a text replace system using url indices
   tweet.entities.urls.forEach(url => {
@@ -51,7 +55,24 @@ function replaceLinks(tweet) {
       media_key[text] = { media_url: item.media_url_https, type: item.type };
     });
 
+  tweet.entities.user_mentions &&
+    tweet.entities.user_mentions.forEach(item => {
+      const text = Array.from(tweet.full_text)
+        .slice(item.indices[0], item.indices[1])
+        .join("");
+      mentions[text] = item.name;
+    });
+
+  tweet.entities.hashtags &&
+    tweet.entities.hashtags.forEach(item => {
+      const text = Array.from(tweet.full_text)
+        .slice(item.indices[0], item.indices[1])
+        .join("");
+      hashtags[text] = true;
+    });
+
   full_text = he.decode(full_text);
+
   Object.keys(key).forEach(k => {
     full_text = reactStringReplace(full_text, k, (match, i) => (
       <a
@@ -82,12 +103,27 @@ function replaceLinks(tweet) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        [Img:{" "}
-        {removed_type.length > 24
-          ? removed_type.slice(0, 21) + "..."
+        &#128247;{" "}
+        {removed_type.length > 29
+          ? removed_type.slice(0, 26) + "..."
           : removed_type}
-        ]
       </a>
+    ));
+  });
+
+  Object.keys(mentions).forEach(k => {
+    full_text = reactStringReplace(full_text, k, (match, i) => (
+      <span className="mention" key={k} title={mentions[k]}>
+        {k}
+      </span>
+    ));
+  });
+
+  Object.keys(hashtags).forEach(k => {
+    full_text = reactStringReplace(full_text, k, (match, i) => (
+      <span className="hashtag" key={k}>
+        {k}
+      </span>
     ));
   });
 

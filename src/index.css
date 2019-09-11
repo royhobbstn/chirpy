@@ -27,8 +27,9 @@ body {
     margin: 12px 0;
 }
 
-.bold {
+.main-alias {
     font-weight: bold;
+    cursor: alias;
 }
 
 .image-container {
@@ -74,4 +75,15 @@ pre {
     overflow-x: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+.mention {
+    color: maroon;
+    cursor: alias;
+    font-weight: bold;
+}
+
+.hashtag {
+    color: grey;
+    font-style: italic;
 }
