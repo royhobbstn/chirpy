@@ -1,5 +1,7 @@
 # Chirpy
 
+https://chirpy-app.com/
+
 A free, minimal, information-focused Twitter client.
 
 Only display *"chirps"* with outside links.  No inane banter.  No moral outrage.  No endless scrolling.  Just the nutrients.
@@ -14,7 +16,7 @@ Only display *"chirps"* with outside links.  No inane banter.  No moral outrage.
 **iPhone**: 
 
  - Open Safari.
- - Navigate to the Chirpy homepage. 
+ - Navigate to the Chirpy homepage.  https://chirpy-app.com/
  - Do the authentication dance.
  - Press the Share button at the bottom of the page.
  - In the lower icon row, click: **Add to Home Screen**
